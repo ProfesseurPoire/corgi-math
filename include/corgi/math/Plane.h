@@ -5,16 +5,15 @@
 
 namespace  corgi::math
 {
-	
-	//  Classe utilisé pour représenté un plan "mathématiquement". Petit rappel, un plan est déterminé soit par
-	//  un point P et 2 vecteurs directeurs u et v, ou par un point P et sa normale
+	// Represents a plane in mathematics. A plane is defined by a point P and 2 direction vector u,v. Or by a point P and
+	// the normal to the plane.
 	class Plane 
 	{
 
 	public:
 
-		// Construction d'un plan à partir d'un point dans l'espace et de 2 vecteurs directeurs.
-		// La normale du plan sera construite à partir d'un produit vectoriel des 2 vecteurs directeurs
+		// Construction d'un plan ï¿½ partir d'un point dans l'espace et de 2 vecteurs directeurs.
+		// La normale du plan sera construite ï¿½ partir d'un produit vectoriel des 2 vecteurs directeurs
 		Plane(Vec3 point, Vec3 tangent, Vec3 bitangent) 
 		{
 			m_point		= point;
@@ -24,7 +23,7 @@ namespace  corgi::math
 			compute_coefficients();
 		}
 
-		// Construction d'un plan à partir d'un point dans l'espace et de sa normale
+		// Construction d'un plan ï¿½ partir d'un point dans l'espace et de sa normale
 		Plane(Vec3 point, Vec3 normal) 
 		{
 			m_point = point;
@@ -35,13 +34,13 @@ namespace  corgi::math
 	// Functions
 
 		// Calcul le point d'intersection entre la droite et le plan. Pour se faire, 
-		// On prend l'équation ax+by+cz+d = 0 du plan, et on remplace x,y,z par les valeurs 
-		// différentes composantes de l'équation paramétrique de la droite 
+		// On prend l'ï¿½quation ax+by+cz+d = 0 du plan, et on remplace x,y,z par les valeurs 
+		// diffï¿½rentes composantes de l'ï¿½quation paramï¿½trique de la droite 
 		Vec3 line_intersection(Line line) {
 
 			float denom = line.direction().x * m_a + line.direction().y * m_b + line.direction().z * m_c;
 
-			// non Colinarité
+			// non Colinaritï¿½
 			if (denom != 0)
 			{
 				float t = -line.point().x * m_a - line.point().y * m_b - line.point().z * m_c - m_d;
@@ -54,8 +53,8 @@ namespace  corgi::math
 				);
 			}
 
-			// Dans le cas assez improbable ou la droite et le plan serait colinéaire, on renvoit le point 
-			// définit dans la droite
+			// Dans le cas assez improbable ou la droite et le plan serait colinï¿½aire, on renvoit le point 
+			// dï¿½finit dans la droite
 			return line.point();
 		}
 
@@ -73,7 +72,7 @@ namespace  corgi::math
 
 	// Variables
 
-		// Coefficients de l'équation du plan ax+by+cz+d=0
+		// Coefficients de l'ï¿½quation du plan ax+by+cz+d=0
 
 		float m_a;
 		float m_b;
@@ -85,7 +84,7 @@ namespace  corgi::math
 		Vec3 m_tangent;
 		Vec3 m_bitangent;
 
-		// On recherche l'équation du plan du triangle, on a besoin de la normale pour se faire
-		// Rappel, équation du plan : ax+by+cz+d=0
+		// On recherche l'ï¿½quation du plan du triangle, on a besoin de la normale pour se faire
+		// Rappel, ï¿½quation du plan : ax+by+cz+d=0
 	};
 }

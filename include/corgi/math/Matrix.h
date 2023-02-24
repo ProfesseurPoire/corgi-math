@@ -243,7 +243,7 @@ namespace corgi
 			@brief      Mutliply the current Matrix with the vector
 			@details    TODO : Add the math behind this Matrix multiplication
 		*/
-		Vec4 operator*(const Vec4& v)const;
+		vec4 operator*(const vec4& v)const;
 
 		Matrix operator/(const float v)const;
 		Matrix operator*(const float v)const;

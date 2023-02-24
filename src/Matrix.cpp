@@ -294,25 +294,25 @@ namespace corgi {
 			const auto Coef16 = get(2,0) * get(3,2) - get(3,0) * get(2,2);
 			const auto Coef20 = get(2,0) * get(3,1) - get(3,0) * get(2,1);
 
-			const Vec4 Fac0(Coef00, Coef00, get(1,2) * get(3,3) - get(3,2) * get(1,3), get(1,2) * get(2,3) - get(2,2) * get(1,3));
-			const Vec4 Fac1(Coef04, Coef04, get(1,1) * get(3,3) - get(3,1) * get(1,3), get(1,1) * get(2,3) - get(2,1) * get(1,3));
-			const Vec4 Fac2(Coef08, Coef08, get(1,1) * get(3,2) - get(3,1) * get(1,2), get(1,1) * get(2,2) - get(2,1) * get(1,2));
-			const Vec4 Fac3(Coef12, Coef12, get(1,0) * get(3,3) - get(3,0) * get(1,3), get(1,0) * get(2,3) - get(2,0) * get(1,3));
-			const Vec4 Fac4(Coef16, Coef16, get(1,0) * get(3,2) - get(3,0) * get(1,2), get(1,0) * get(2,2) - get(2,0) * get(1,2));
-			const Vec4 Fac5(Coef20, Coef20, get(1,0) * get(3,1) - get(3,0) * get(1,1), get(1,0) * get(2,1) - get(2,0) * get(1,1));
+			const vec4 Fac0(Coef00, Coef00, get(1,2) * get(3,3) - get(3,2) * get(1,3), get(1,2) * get(2,3) - get(2,2) * get(1,3));
+			const vec4 Fac1(Coef04, Coef04, get(1,1) * get(3,3) - get(3,1) * get(1,3), get(1,1) * get(2,3) - get(2,1) * get(1,3));
+			const vec4 Fac2(Coef08, Coef08, get(1,1) * get(3,2) - get(3,1) * get(1,2), get(1,1) * get(2,2) - get(2,1) * get(1,2));
+			const vec4 Fac3(Coef12, Coef12, get(1,0) * get(3,3) - get(3,0) * get(1,3), get(1,0) * get(2,3) - get(2,0) * get(1,3));
+			const vec4 Fac4(Coef16, Coef16, get(1,0) * get(3,2) - get(3,0) * get(1,2), get(1,0) * get(2,2) - get(2,0) * get(1,2));
+			const vec4 Fac5(Coef20, Coef20, get(1,0) * get(3,1) - get(3,0) * get(1,1), get(1,0) * get(2,1) - get(2,0) * get(1,1));
 
-			const Vec4 Vec0(get_value(1,0), get_value(0,0), get_value(0,0), get_value(0,0));
-			const Vec4 Vec1(get_value(1,1), get_value(0,1), get_value(0,1), get_value(0,1));
-			const Vec4 Vec2(get_value(1,2), get_value(0,2), get_value(0,2), get_value(0,2));
-			const Vec4 Vec3(get_value(1,3), get_value(0,3), get_value(0,3), get_value(0,3));
+			const vec4 Vec0(get_value(1,0), get_value(0,0), get_value(0,0), get_value(0,0));
+			const vec4 Vec1(get_value(1,1), get_value(0,1), get_value(0,1), get_value(0,1));
+			const vec4 Vec2(get_value(1,2), get_value(0,2), get_value(0,2), get_value(0,2));
+			const vec4 Vec3(get_value(1,3), get_value(0,3), get_value(0,3), get_value(0,3));
 
-			const Vec4 Inv0(Vec1 * Fac0 - Vec2 * Fac1 + Vec3 * Fac2);
-			const Vec4 Inv1(Vec0 * Fac0 - Vec2 * Fac3 + Vec3 * Fac4);
-			const Vec4 Inv2(Vec0 * Fac1 - Vec1 * Fac3 + Vec3 * Fac5);
-			const Vec4 Inv3(Vec0 * Fac2 - Vec1 * Fac4 + Vec2 * Fac5);
+			const vec4 Inv0(Vec1 * Fac0 - Vec2 * Fac1 + Vec3 * Fac2);
+			const vec4 Inv1(Vec0 * Fac0 - Vec2 * Fac3 + Vec3 * Fac4);
+			const vec4 Inv2(Vec0 * Fac1 - Vec1 * Fac3 + Vec3 * Fac5);
+			const vec4 Inv3(Vec0 * Fac2 - Vec1 * Fac4 + Vec2 * Fac5);
 
-			const Vec4 SignA(+1, -1, +1, -1);
-			const Vec4 SignB(-1, +1, -1, +1);
+			const vec4 SignA(+1, -1, +1, -1);
+			const vec4 SignB(-1, +1, -1, +1);
 
 			const Matrix Inverse(
 				(Inv0 * SignA).x, (Inv1 * SignB).x, (Inv2 * SignA).x, (Inv3 * SignB).x,
@@ -320,7 +320,7 @@ namespace corgi {
 				(Inv0 * SignA).z, (Inv1 * SignB).z, (Inv2 * SignA).z, (Inv3 * SignB).z,
 				(Inv0 * SignA).w, (Inv1 * SignB).w, (Inv2 * SignA).w, (Inv3 * SignB).w);
 
-			const Vec4 Dot0(	get_value(0, 0) * Inverse.get_value(0,0),
+			const vec4 Dot0(	get_value(0, 0) * Inverse.get_value(0,0),
 						  get_value(0, 1) * Inverse.get_value(1,0),
 						  get_value(0, 2) * Inverse.get_value(2,0),
 						  get_value(0, 3) * Inverse.get_value(3,0)
@@ -424,9 +424,9 @@ namespace corgi {
 		);
 	}
 
-	Vec4 Matrix::operator*(const Vec4& v)const
+	vec4 Matrix::operator*(const vec4& v)const
 	{
-		return Vec4
+		return vec4
 		(
 			_items[0] * v.x + _items[4] * v.y+ _items[8] *  v.z + _items[12] * v.w,
 			_items[1] * v.x + _items[5] * v.y+ _items[9] *  v.z + _items[13] * v.w,
