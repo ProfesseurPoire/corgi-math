@@ -3,9 +3,10 @@ cmake_minimum_required(VERSION 3.9.0)
 project(corgi-math VERSION 1.0.0)
 
 cmake_policy(SET CMP0076 NEW)
-
+set(CMAKE_DEBUG_POSTFIX d)
 
 add_library(${PROJECT_NAME} STATIC "")
+
 
 add_subdirectory(include/corgi/math)
 add_subdirectory(src)
