@@ -12,9 +12,9 @@ namespace corgi::math
 Vec3 get_triangle_normal(const Vec3& a, const Vec3& b, const Vec3& c);
 
 // Used by the sat
-Vec3 project_points(const Vec3* points, unsigned int points_size, const Vec3& axis);
+Vec3 project_points(const Vec3* points, size_t points_size, const Vec3& axis);
 Vec2 project_points(const Vec2*   points,
-                    unsigned int  points_size,
+                    size_t        points_size,
                     const Matrix& mat,
                     const Vec2&   axis);
 

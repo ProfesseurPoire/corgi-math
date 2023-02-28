@@ -357,7 +357,7 @@ bool intersect_with_mesh(
     return doesIntersect;
 }
 
-Vec3 project_points(const Vec3* points, const unsigned int points_size, const Vec3& axis)
+Vec3 project_points(const Vec3* points, const size_t points_size, const Vec3& axis)
 {
     float mi  = points[0].dot(axis);
     float ma  = mi;
@@ -375,10 +375,10 @@ Vec3 project_points(const Vec3* points, const unsigned int points_size, const Ve
     return Vec3(mi, ma, 0.0f);
 }
 
-Vec2 project_points(const Vec2*        points,
-                    const unsigned int points_size,
-                    const Matrix&      mat,
-                    const Vec2&        axis)
+Vec2 project_points(const Vec2*   points,
+                    const size_t  points_size,
+                    const Matrix& mat,
+                    const Vec2&   axis)
 {
     float mi  = (mat * points[0]).dot(axis);
     float ma  = mi;
