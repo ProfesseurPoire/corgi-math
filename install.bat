@@ -14,15 +14,11 @@ for %%i in (x64) do (
         mkdir build\build%%i\%%j
         cd build\build%%i\%%j
 
-        if %%i == x86 (
-            cmake -DCMAKE_BUILD_TYPE=%%j -DCMAKE_INSTALL_PREFIX="C:\\Program Files\\corgi-math" -DBUILD_TESTS=OFF -DBUILD_EXAMPLES=OFF -G "Visual Studio 16 2019" -A Win32 ..\..\..
-        ) else (
-            cmake -DCMAKE_BUILD_TYPE=%%j -DCMAKE_INSTALL_PREFIX="C:\\Program Files\\corgi-math" -DBUILD_TESTS=OFF -DBUILD_EXAMPLES=OFF -G "Visual Studio 16 2019" -A x64 ..\..\..
-        )
+  	  cmake -DCMAKE_BUILD_TYPE=%%j -DCMAKE_INSTALL_PREFIX="C:\\Program Files\\corgi-math" -DBUILD_TESTS=OFF -DBUILD_EXAMPLES=OFF -G "Visual Studio 16 2019" -A x64 ..\..\..
+
         
         msbuild INSTALL.vcxproj /property:Configuration=%%j    
         endlocal
     )
     endlocal
 )
-pause
