@@ -1,5 +1,7 @@
 project(corgi-math_tests)
 
+set(CMAKE_DEBUG_POSTFIX d)
+
 add_executable(${PROJECT_NAME}
 	main_test.cpp
 	ut_matrix.cpp
