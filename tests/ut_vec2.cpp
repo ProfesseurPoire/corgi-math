@@ -1,11 +1,11 @@
-#include <corgi/math/Vec2.h>
+#include <corgi/math/vec2.h>
 #include <corgi/math/MathUtils.h>
 
 #include <ostream>
 using namespace corgi::math;
 using namespace corgi;
 
-static std::ostream& operator<<(std::ostream& o, const Vec2& v)
+static std::ostream& operator<<(std::ostream& o, const vec2& v)
 {
    return o << "{ x : " << v.x << " ; y = " << v.y << " }";
 }
@@ -109,22 +109,22 @@ class ut_vec2 : public corgi::test::Test {};
 
 TEST_F(ut_vec2, check_equals)
 {
-	assert_that(Vec2(1.0f, 0.0f), equals(Vec2(1.0f, 0.0f)));
+	assert_that(vec2(1.0f, 0.0f), equals(vec2(1.0f, 0.0f)));
 }
 
 TEST_F(ut_vec2, check_not_equals)
 {
-	assert_that(Vec2(1.0f, 0.0f), non_equals(Vec2(0.0f, 1.0f)));
+	assert_that(vec2(1.0f, 0.0f), non_equals(vec2(0.0f, 1.0f)));
 }
 
 TEST_F(ut_vec2, check_default_constructor)
 {
-	Vec2 d;
+	vec2 d;
 
 	assert_that(d.x, equals(0.0f));
 	assert_that(d.y, equals(0.0f));
 
-	Vec2 dd(0.0f, 1.0f);
+	vec2 dd(0.0f, 1.0f);
 
 	assert_that(dd.x, equals(0.0f));
 	assert_that(dd.y, equals(1.0f));
@@ -132,69 +132,69 @@ TEST_F(ut_vec2, check_default_constructor)
 
 TEST_F(ut_vec2, check_lerp)
 {
-	assert_that(Vec2::lerp(Vec2(0.0f, 0.0f),
-		Vec2(0.0f, 1.0f), 0.5f),
-		equals(Vec2(0.0f, 0.5f)));
+	assert_that(vec2::lerp(vec2(0.0f, 0.0f),
+		vec2(0.0f, 1.0f), 0.5f),
+		equals(vec2(0.0f, 0.5f)));
 }
 
 TEST_F(ut_vec2, check_addition)
 {
-	assert_that(Vec2(2.0f, 4.0f) + Vec2(2.0f, 6.0f),
-		equals(Vec2(4.0f, 10.0f)));
+	assert_that(vec2(2.0f, 4.0f) + vec2(2.0f, 6.0f),
+		equals(vec2(4.0f, 10.0f)));
 }
 
 TEST_F(ut_vec2, check_subtraction)
 {
-	assert_that(Vec2(6.0f, 4.0f) - Vec2(4.0f, 0.0f),
-		equals(Vec2(2.0f, 4.0f)));
+	assert_that(vec2(6.0f, 4.0f) - vec2(4.0f, 0.0f),
+		equals(vec2(2.0f, 4.0f)));
 }
 
 TEST_F(ut_vec2, check_multiplication)
 {
-	assert_that(Vec2(2.0f, 5.0f)*Vec2(2.0f, 5.0f),
-		equals(Vec2(4.0f, 25.0f)));
+	assert_that(vec2(2.0f, 5.0f)*vec2(2.0f, 5.0f),
+		equals(vec2(4.0f, 25.0f)));
 }
 
 TEST_F(ut_vec2, check_orthogonal_vector)
 {
-	assert_that(Vec2(0.0f, 1.0f).orthogonal_vector(),
-		equals(Vec2(-1.0f, 0.0f)));
+	assert_that(vec2(0.0f, 1.0f).orthogonal_vector(),
+		equals(vec2(-1.0f, 0.0f)));
 }
 
 TEST_F(ut_vec2, check_ortho)
 {
-	assert_that(Vec2(0.0f, 1.0f).dot(Vec2(1.0f, 0.0f)),
+	assert_that(vec2(0.0f, 1.0f).dot(vec2(1.0f, 0.0f)),
 		equals(0.0f));
 
     
-	assert_that(Vec2(0.0f, 1.0f).are_orthogonal(Vec2(1.0f, 0.0f)),
+	assert_that(vec2(0.0f, 1.0f).are_orthogonal(vec2(1.0f, 0.0f)),
 		equals(true));
 }
 
 TEST_F(ut_vec2, check_colinearity)
 {
-	assert_that(Vec2(0.0f, 1.0f).are_collinear(Vec2(0.0f, 1.0f)),
+	assert_that(vec2(0.0f, 1.0f).are_collinear(vec2(0.0f, 1.0f)),
 		equals(true));
 }
 
 TEST_F(ut_vec2, check_angle)
 {
-    Vec2 a(1.0f, 0.0f);
+    vec2 a(1.0f, 0.0f);
 
-	assert_that(Vec2(0.0f, 1.0f).angle(a),
+	assert_that(vec2(0.0f, 1.0f).angle(a),
 		equals(corgi::math::pi / 2.0f));
 }
 
 TEST_F(ut_vec2, CheckLength)
 {
-	Vec2 v = Vec2(2.0f, 0.0f);
+	vec2 v = vec2(2.0f, 0.0f);
 	assert_that(v.length(), equals(2.0f));
 }
 
 TEST_F(ut_vec2, check_normalize)
 {
-	Vec2 v = Vec2(2.0f, 0.0f);
+	vec2 v = vec2(2.0f, 0.0f);
 	v = v.normalized();
 	//assert_that(v.normalize(), equals(true));
-	assert_that(v, equals(Vec2(1.0f, 0.0f)));
+	assert_that(v, equals(vec2(1.0f, 0.0f)));
 }

@@ -1,14 +1,14 @@
 #pragma once
 
-#include <corgi/math/Vec3.h>
+#include <corgi/math/vec3.h>
 
 namespace corgi::math
 {
 	
-	/// LineGeometry représente une droite "mathématiquement" Pour rappel, l'équation cartésienne
+	/// LineGeometry reprï¿½sente une droite "mathï¿½matiquement" Pour rappel, l'ï¿½quation cartï¿½sienne
 	/// d'une droite est ax+by+c=0 
 	/// 
-	/// Quant à l'équation paramétrique, elle s'exprime de la manière suivante : 
+	/// Quant ï¿½ l'ï¿½quation paramï¿½trique, elle s'exprime de la maniï¿½re suivante : 
 	/// X = at + Xa
 	/// Y = bt + Ya
 	/// Z = ct + Za
@@ -18,14 +18,14 @@ namespace corgi::math
 
 	// Lifecycle
 
-		// On définit les paramètres de la courbe à partir d'un point dans l'espace et de son vecteur directeur
-		Line(Vec3 point, Vec3 directeur) 
+		// On dï¿½finit les paramï¿½tres de la courbe ï¿½ partir d'un point dans l'espace et de son vecteur directeur
+		Line(vec3 point, vec3 directeur) 
 		{
 			m_point			= point;
 			m_direction		= directeur.normalized();
 		}
 
-		// On définit directement les coefficients de l'équation cartésienne
+		// On dï¿½finit directement les coefficients de l'ï¿½quation cartï¿½sienne
 		Line(float a, float b, float c) 
 		{
 			m_a = a;
@@ -52,16 +52,16 @@ namespace corgi::math
 			return m_c;
 		}
 
-		// Si la droite à été défini de manière paramétrique, retourne le point P
-		Vec3 point() {
+		// Si la droite ï¿½ ï¿½tï¿½ dï¿½fini de maniï¿½re paramï¿½trique, retourne le point P
+		vec3 point() {
 			if (m_isCartesienne)
-				return Vec3::zero;
+				return vec3::zero;
 			return m_point;
 		}
 
-		Vec3 direction() {
+		vec3 direction() {
 			if (m_isCartesienne)
-				return Vec3::zero;
+				return vec3::zero;
 			return m_direction;
 		}
 
@@ -69,17 +69,17 @@ namespace corgi::math
 
 		// Variables
 				
-		// Permet de savoir si la droite à été déterminer de manière cartésienne ou non
+		// Permet de savoir si la droite ï¿½ ï¿½tï¿½ dï¿½terminer de maniï¿½re cartï¿½sienne ou non
 		bool m_isCartesienne;
 
 		
-		// Coefficients de l'équation cartésienne
+		// Coefficients de l'ï¿½quation cartï¿½sienne
 		float m_a;
 		float m_b;
 		float m_c;
 
-		Vec3 m_point;
-		Vec3 m_direction;
+		vec3 m_point;
+		vec3 m_direction;
 	};
 
 }

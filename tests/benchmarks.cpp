@@ -1,5 +1,5 @@
 #include <corgi/test/test.h>
-#include <corgi/math/Vec2.h>
+#include <corgi/math/vec2.h>
 #include <random>
 
 using namespace corgi;
@@ -18,7 +18,7 @@ TEST(MathBenchmark, test_random_vector_generation_angle)
 {
 	for (int i = 0; i < generation; i++)
 	{
-		sum += Vec2::random(2.0f).x;
+		sum += vec2::random(2.0f).x;
 	}
 }
 
@@ -32,7 +32,7 @@ TEST(MathBenchmark, test_random_vector_generation_normalized)
 			1.0f
 		);
 
-		Vec2 v(ud(mt), ud(mt));
+		vec2 v(ud(mt), ud(mt));
 		v.normalize();
 		v *= 2.0f;
 		sum += v.x;

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <corgi/math/detail/Vec2.h>
+#include <corgi/math/detail/vec2.h>
 
 namespace corgi { namespace math { namespace detail {
 
@@ -81,7 +81,7 @@ public:
 
     }
 
-    constexpr Rectangle(const  corgi::detail::Vec2<T>& position, const  corgi::detail::Vec2<T>& size)
+    constexpr Rectangle(const  corgi::detail::vec2<T>& position, const  corgi::detail::vec2<T>& size)
         :_x(position.get_x()), _y(position.get_y()), _width(size.get_x()), _height(size.get_y())
     {
                 
@@ -109,7 +109,7 @@ public:
         @param  point Tested point
         @return Returns true if the point is inside the current rectangle, false otherwise
     */
-    constexpr bool contains(const corgi::detail::Vec2<T>& point)
+    constexpr bool contains(const corgi::detail::vec2<T>& point)
     {
         return contains(point.x(), point.y());
     }
@@ -122,22 +122,22 @@ public:
     @returns    Returns true if the segment intersect with the rectangle and
     store the intersection point in the intersection parameter
     */
-    constexpr bool intersect(const corgi::detail::Vec2<T>& a1, const  corgi::detail::Vec2<T>& a2,  corgi::detail::Vec2<T>& intersection)const
+    constexpr bool intersect(const corgi::detail::vec2<T>& a1, const  corgi::detail::vec2<T>& a2,  corgi::detail::vec2<T>& intersection)const
     {
-        corgi::detail::Vec2<T> v1;
-        corgi::detail::Vec2<T> v2;
-        corgi::detail::Vec2<T> v3;
-        corgi::detail::Vec2<T> v4;
+        corgi::detail::vec2<T> v1;
+        corgi::detail::vec2<T> v2;
+        corgi::detail::vec2<T> v3;
+        corgi::detail::vec2<T> v4;
 
         int i1 = 0;
         int i2 = 0;
         int i3 = 0;
         int i4 = 0;
 
-        i1 += segment_intersect(corgi::detail::Vec2<T>(_x, _y),            corgi::detail::Vec2<T>(_x + _width, _y), a1, a2, v1);
-        i2 += segment_intersect(corgi::detail::Vec2<T>(_x, _y),            corgi::detail::Vec2<T>(_x, _y + _height), a1, a2, v2);
-        i3 += segment_intersect(corgi::detail::Vec2<T>(_x, _y + _height),  corgi::detail::Vec2<T>(_x + _width, _y + _height), a1, a2, v3);
-        i4 += segment_intersect(corgi::detail::Vec2<T>(_x + _width, _y),   corgi::detail::Vec2<T>(_x + _width, _y + _height), a1, a2, v4);
+        i1 += segment_intersect(corgi::detail::vec2<T>(_x, _y),            corgi::detail::vec2<T>(_x + _width, _y), a1, a2, v1);
+        i2 += segment_intersect(corgi::detail::vec2<T>(_x, _y),            corgi::detail::vec2<T>(_x, _y + _height), a1, a2, v2);
+        i3 += segment_intersect(corgi::detail::vec2<T>(_x, _y + _height),  corgi::detail::vec2<T>(_x + _width, _y + _height), a1, a2, v3);
+        i4 += segment_intersect(corgi::detail::vec2<T>(_x + _width, _y),   corgi::detail::vec2<T>(_x + _width, _y + _height), a1, a2, v4);
 
         int i = i1 + i2 + i3 + i4;
 

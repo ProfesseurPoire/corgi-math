@@ -1,7 +1,7 @@
 #pragma once
 
 #include <corgi/math/MathUtils.h>
-#include <corgi/math/Vec3.h>
+#include <corgi/math/vec3.h>
 
 #include <iostream>
 #include <vector>
@@ -39,9 +39,9 @@ inline float linear_easing(float t, float b, float c, float d)
     return ((c * t) / d) + b;
 }
 
-inline corgi::Vec3 linear_easing(float t, corgi::Vec3 start, corgi::Vec3 end)
+inline corgi::vec3 linear_easing(float t, corgi::vec3 start, corgi::vec3 end)
 {
-    return corgi::Vec3(linear_easing(t, start.x, end.x - start.x, 1.0f),
+    return corgi::vec3(linear_easing(t, start.x, end.x - start.x, 1.0f),
                        linear_easing(t, start.y, end.y - start.y, 1.0f),
                        linear_easing(t, start.z, end.z - start.z, 1.0f));
 }
@@ -78,7 +78,7 @@ inline float getEasing(EasingEquation equation, float time)
             return easeInQuad(time);
         case EasingEquation::QuadraticEasingOut:
             return easeOutQuad(time);
-        case EasingEquation::Linear:    // Non implemented yet
+        case EasingEquation::Linear:                  // Non implemented yet
             return 0.0f;
         case EasingEquation::QuadraticEasingInOut:    // not implemented yet
             return 0.0f;
@@ -99,9 +99,9 @@ inline float quadratic_easing_in_out(float t, float b, float c, float d)
      * @brief   Interpolate a value between start and end by using the t value that must be inside the
      *          [0.0f, 1.0f] range
      */
-inline corgi::Vec3 quadratic_easing_in_out(float t, corgi::Vec3 start, corgi::Vec3 end)
+inline corgi::vec3 quadratic_easing_in_out(float t, corgi::vec3 start, corgi::vec3 end)
 {
-    return corgi::Vec3(quadratic_easing_in_out(t, start.x, end.x - start.x, 1.0f),
+    return corgi::vec3(quadratic_easing_in_out(t, start.x, end.x - start.x, 1.0f),
                        quadratic_easing_in_out(t, start.y, end.y - start.y, 1.0f),
                        quadratic_easing_in_out(t, start.z, end.z - start.z, 1.0f));
 }

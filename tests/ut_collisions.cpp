@@ -1,5 +1,5 @@
 #include <corgi/math/Collisions.h>
-#include <corgi/math/Vec3.h>
+#include <corgi/math/vec3.h>
 #include <ostream>
 #include <vector>
 
@@ -13,9 +13,9 @@ class TestTriangle : public corgi::test::Test
 {
 //public:
 //
-//	std::vector<Vec3> v1;
-//	std::vector<Vec3> v2;
-//	std::vector<Vec3> v3;
+//	std::vector<vec3> v1;
+//	std::vector<vec3> v2;
+//	std::vector<vec3> v3;
 //
 //	int size = 9999999;
 //

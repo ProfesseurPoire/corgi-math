@@ -1,5 +1,5 @@
 //#include <corgi/math/Matrix.h>
-//#include <corgi/math/Vec3.h>
+//#include <corgi/math/vec3.h>
 //#include <corgi/math/Vec4.h>
 //#include <corgi/math/MathUtils.h>
 //
@@ -7,7 +7,7 @@
 //
 //using namespace corgi;
 //
-//static std::ostream& operator<<(std::ostream& o, const Vec3& v)noexcept
+//static std::ostream& operator<<(std::ostream& o, const vec3& v)noexcept
 //{
 //    return o << "{ x : " << v.x << " ; y = " << v.y << " ; z = " << v.z << " }";
 //}
@@ -162,10 +162,10 @@
 //{
 //	Matrix m = Matrix::translation(10.0f, 2.0f, 3.0f);
 //
-//	Vec3 v1(0.0f, 0.0f, 0.0f);
+//	vec3 v1(0.0f, 0.0f, 0.0f);
 //	corgi::Vec4 v2(1.0f, 2.0f, 3.0f, 1.0f);
 //
-//	assert_that(m*v1, equals(Vec3(10.0f, 2.0f, 3.0f)));
+//	assert_that(m*v1, equals(vec3(10.0f, 2.0f, 3.0f)));
 //	//assert_that(m*v2, equals(corgi::Vec4(11.0f, 4.0f, 6.0f, 1.0f)));
 //}
 //
@@ -173,7 +173,7 @@
 //{
 //	Matrix m = Matrix::translation(10.0f, 2.0f, 3.0f);
 //
-//	Vec3 v(2.0f, 3.0f, 4.0f);
+//	vec3 v(2.0f, 3.0f, 4.0f);
 //	for (int i = 0; i < 3000000; ++i)
 //	{
 //		m = m * m;
@@ -184,8 +184,8 @@
 //TEST(Matrix, OrthoMatrix)
 //{
 //	Matrix m = Matrix::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 0.0f, 20.0f);
-//	assert_that(m*Vec3(5.0f, -5.0f, 5.0f),
-//		equals(Vec3(0.5f, -0.5f, 0.5f)));
+//	assert_that(m*vec3(5.0f, -5.0f, 5.0f),
+//		equals(vec3(0.5f, -0.5f, 0.5f)));
 //}
 //
 //TEST(Matrix, RotationMatrix)
@@ -194,31 +194,31 @@
 //	//Matrix ry = Matrix::rotation_y(pi_f / 2.0f);
 //	//Matrix rz = Matrix::rotation_z(pi_f / 2.0f);
 //	//
-//	//assert_that((rx*Vec3(0.0f, 1.0f, 0.0f)).x,
+//	//assert_that((rx*vec3(0.0f, 1.0f, 0.0f)).x,
 //	//	almost_equals(0.0f, 0.001f));
 //	//
-//	//assert_that((rx*Vec3(0.0f, 1.0f, 0.0f)).y,
+//	//assert_that((rx*vec3(0.0f, 1.0f, 0.0f)).y,
 //	//	almost_equals(0.0f, 0.001f));
 //	//
-//	//assert_that((rx*Vec3(0.0f, 1.0f, 0.0f)).z,
+//	//assert_that((rx*vec3(0.0f, 1.0f, 0.0f)).z,
 //	//	almost_equals(1.0f, 0.001f));
 //	//
-//	//assert_that((ry*Vec3(1.0f, 0.0f, 0.0f)).x,
+//	//assert_that((ry*vec3(1.0f, 0.0f, 0.0f)).x,
 //	//	almost_equals(0.0f, 0.001f));
 //	//
-//	//assert_that((ry*Vec3(1.0f, 0.0f, 0.0f)).y,
+//	//assert_that((ry*vec3(1.0f, 0.0f, 0.0f)).y,
 //	//	almost_equals(0.0f, 0.001f));
 //	//
-//	//assert_that((ry*Vec3(1.0f, 0.0f, 0.0f)).z,
+//	//assert_that((ry*vec3(1.0f, 0.0f, 0.0f)).z,
 //	//	almost_equals(-1.0f, 0.001f));
 //	//
-//	//assert_that((rz*Vec3(1.0f, 0.0f, 0.0f)).x,
+//	//assert_that((rz*vec3(1.0f, 0.0f, 0.0f)).x,
 //	//	almost_equals(0.0f, 0.001f));
 //	//
-//	//assert_that((rz*Vec3(1.0f, 0.0f, 0.0f)).y,
+//	//assert_that((rz*vec3(1.0f, 0.0f, 0.0f)).y,
 //	//	almost_equals(1.0f, 0.001f));
 //	//
-//	//assert_that((rz*Vec3(1.0f, 0.0f, 0.0f)).z,
+//	//assert_that((rz*vec3(1.0f, 0.0f, 0.0f)).z,
 //	//	almost_equals(0.0f, 0.001f));
 //}
 //
@@ -234,8 +234,8 @@
 //	Matrix result = m * inverse;
 //
 //	// Ok it works but with a little epsilon thing
-//	assert_that(result*Vec3(1.0f, 0.0f, 3.0f),
-//		equals(Vec3(1.0f, 0.0f, 3.0f)));
+//	assert_that(result*vec3(1.0f, 0.0f, 3.0f),
+//		equals(vec3(1.0f, 0.0f, 3.0f)));
 //}
 //
 //TEST(Matrix, FrustumMatrix)
@@ -260,23 +260,23 @@
 //
 //TEST(Matrix, TransformMatrix)
 //{
-//	//Matrix transform_matrix = Matrix::transform(Vec3(1.0f, 0.0f, 0.0f),
-//	//	Vec3(0.0f, 0.0f, pi_f / 2.0f),
-//	//	Vec3(2.0f, 2.0f, 2.0f));
+//	//Matrix transform_matrix = Matrix::transform(vec3(1.0f, 0.0f, 0.0f),
+//	//	vec3(0.0f, 0.0f, pi_f / 2.0f),
+//	//	vec3(2.0f, 2.0f, 2.0f));
 //   //
-//	//assert_that((transform_matrix*Vec3(0.0f, 0.0f, 0.0f)).x,
+//	//assert_that((transform_matrix*vec3(0.0f, 0.0f, 0.0f)).x,
 //	//	almost_equals(0.0f, 0.001f));
 //	//
-//	//assert_that((transform_matrix*Vec3(0.0f, 0.0f, 0.0f)).y,
+//	//assert_that((transform_matrix*vec3(0.0f, 0.0f, 0.0f)).y,
 //	//	almost_equals(2.0f, 0.001f));
 //	//
-//	//assert_that((transform_matrix*Vec3(0.0f, 0.0f, 0.0f)).z,
+//	//assert_that((transform_matrix*vec3(0.0f, 0.0f, 0.0f)).z,
 //	//	almost_equals(0.0f, 0.001f));
 //}
 //
 //TEST(Matrix, LookAt)
 //{
-//	//Matrix m = Matrix::look_at(Vec3(2.0f, 1.0f, 3.0f), Vec3(4.0f, 1.0f, 3.0f));
+//	//Matrix m = Matrix::look_at(vec3(2.0f, 1.0f, 3.0f), vec3(4.0f, 1.0f, 3.0f));
 //	//
 //	//// -6 because the this 4 need to be converted to -2 since the camera
 //	//// looks in the z-

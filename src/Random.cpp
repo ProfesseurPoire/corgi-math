@@ -50,7 +50,7 @@ float real_value()
     return ud(mt);
 }
 
-//Vec3 random_vec3(const float length)
+//vec3 random_vec3(const float length)
 //{
 //	// We simply generate 2 random angles between -pi and pi
 //	// and plot the point on the sphere
@@ -64,7 +64,7 @@ float real_value()
 //	const float u = ud(mt);
 //	const float v = ud(mt);
 
-//	return Vec3(
+//	return vec3(
 //		length * cos(u) * sin(v),
 //		length * sin(u) * sin(v),
 //		length * cos(v)

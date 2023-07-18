@@ -2,11 +2,11 @@
 
 namespace corgi
 {
-	class Vec2i
+	class vec2i
 	{
 	public:
 
-		Vec2i(int x = 0, int y = 0);
+		vec2i(int x = 0, int y = 0);
 
 		int x = 0;
 		int y = 0;

@@ -2,7 +2,7 @@
 
 namespace corgi
 {
-	Ray::Ray(const Vec3& a, const Vec3& b)
+	Ray::Ray(const vec3& a, const vec3& b)
 	{
 		direction = (b - a).normalized();
 		direction.normalize();
@@ -10,7 +10,7 @@ namespace corgi
 		length = (b - a).length();
 	}
 
-	Ray::Ray(const Vec3& start, const Vec3& direction, float length)
+	Ray::Ray(const vec3& start, const vec3& direction, float length)
 		: direction(direction), start(start), length(length)
 	{}
 }

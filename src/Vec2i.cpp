@@ -1,5 +1,5 @@
-#include <corgi/math/Vec2i.h>
+#include <corgi/math/vec2i.h>
 
 using namespace corgi;
 
-Vec2i::Vec2i(int x , int y ): x(x),y(y){}
+vec2i::vec2i(int x , int y ): x(x),y(y){}

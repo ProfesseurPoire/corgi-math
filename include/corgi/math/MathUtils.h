@@ -161,8 +161,8 @@ namespace corgi
         ////    std::vector<vec3> axis(axis1);
         ////    axis.insert(axis.end(), axis2.begin(), axis2.end());
         ////
-        ////    std::vector<Vec2f> projections1;
-        ////    std::vector<Vec2f> projections2;
+        ////    std::vector<vec2f> projections1;
+        ////    std::vector<vec2f> projections2;
         ////
         ////    for (size_t i = 0; i < axis1.size(); i++)
         ////    {
@@ -202,7 +202,7 @@ namespace corgi
         ////}
 
         // Used by the sat
-        ////Vec2f tmath::project_points(std::vector<vec3>& points, vec3 axis)
+        ////vec2f tmath::project_points(std::vector<vec3>& points, vec3 axis)
         ////{
         ////    float min = vec3::dot(points[0], axis);
         ////    float max = min;
@@ -214,7 +214,7 @@ namespace corgi
         ////        min = std::min(val, min);
         ////        max = std::max(val, max);
         ////    }
-        ////    return Vec2f(min, max);
+        ////    return vec2f(min, max);
         ////}
     }    // namespace math
 }    // namespace corgi

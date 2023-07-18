@@ -2,21 +2,21 @@
 
 #include <corgi/math/Matrix.h>
 #include <corgi/math/Ray.h>
-#include <corgi/math/Vec2.h>
-#include <corgi/math/Vec3.h>
+#include <corgi/math/vec2.h>
+#include <corgi/math/vec3.h>
 
 namespace corgi::math
 {
 // TODO : Maybe really have a Triangle class with static function for this stuff
 // I could at least put that and "point_in_triangle" there
-Vec3 get_triangle_normal(const Vec3& a, const Vec3& b, const Vec3& c);
+vec3 get_triangle_normal(const vec3& a, const vec3& b, const vec3& c);
 
 // Used by the sat
-Vec3 project_points(const Vec3* points, size_t points_size, const Vec3& axis);
-Vec2 project_points(const Vec2*   points,
+vec3 project_points(const vec3* points, size_t points_size, const vec3& axis);
+vec2 project_points(const vec2*   points,
                     size_t        points_size,
                     const Matrix& mat,
-                    const Vec2&   axis);
+                    const vec2&   axis);
 
 bool intersect_with_collider(int                 offset,
                              int                 vertex_size,
@@ -25,10 +25,10 @@ bool intersect_with_collider(int                 offset,
                              const unsigned int* indexes,
                              int                 indexes_size,
                              const float*        vertices,
-                             const Vec3*         normals,
+                             const vec3*         normals,
                              const Ray&          ray,
-                             Vec3&               intersection_point,
-                             Vec3&               intersection_normal);
+                             vec3&               intersection_point,
+                             vec3&               intersection_normal);
 
 // We also assume the vertices are GL_TRIANGLES
 bool intersect_with_mesh(
@@ -39,22 +39,22 @@ bool intersect_with_mesh(
     int    vertex_size,    // Size of 1 vertex, not in bytes but in float
     Matrix model_matrix,
     Ray    ray,
-    Vec3&  intersectionPoint,
-    Vec3&  intersectionNormal);
+    vec3&  intersectionPoint,
+    vec3&  intersectionNormal);
 
 bool Overlap(float valmin1, float valmax1, float valmin2, float valmax2);
 
 float GetOverlap(float valmin1, float valmax1, float valmin2, float valmax2);
 
-bool intersect_2D(const Vec2*   vertices_a,
+bool intersect_2D(const vec2*   vertices_a,
                   unsigned int  vertices_a_size,
-                  const Vec2*   vertices_b,
+                  const vec2*   vertices_b,
                   unsigned int  vertices_b_size,
                   const Matrix& m1,
                   const Matrix& m2,
-                  const Vec2*   edges1,
+                  const vec2*   edges1,
                   unsigned int  edges_1_size,
-                  const Vec2*   edges2,
+                  const vec2*   edges2,
                   unsigned int  edges_2_size,
                   const Matrix& mat1,    // without translation
                   const Matrix& mat2);

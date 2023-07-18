@@ -1,7 +1,7 @@
 #pragma once
 
-#include <corgi/math/Vec2.h>
-#include <corgi/math/Vec3.h>
+#include <corgi/math/vec2.h>
+#include <corgi/math/vec3.h>
 
 namespace corgi 
 {
@@ -26,24 +26,24 @@ namespace corgi
 		 * @param a Coordinates of the first point of the line segment AB
 		 * @param b Coordinates of the second point of the line segment AB
 		 */
-		Ray(const Vec3& a, const Vec3& b);
+		Ray(const vec3& a, const vec3& b);
 
 		/*!
 		 * @brief	Builds a new ray going from @p start to @p direction of 
 		 *			@p length
 		 */
-		Ray(const Vec3& start, const Vec3& direction, float length);
+		Ray(const vec3& start, const vec3& direction, float length);
 
-		Vec3 direction;
-		Vec3 start;
+		vec3 direction;
+		vec3 start;
 		float length{0.0f};
 	};
 
 	// We keep it an aggregate type because it's simpler that way
 	struct Ray2D
 	{
-		Vec2 direction;
-		Vec2 start;
+		vec2 direction;
+		vec2 start;
 		float length{ 0.0f };
 	};
 }

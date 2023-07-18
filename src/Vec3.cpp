@@ -1,243 +1,258 @@
-#include <corgi/math/Vec3.h>
 #include <corgi/math/MathUtils.h>
+#include <corgi/math/vec3.h>
 
 using namespace corgi;
 
-bool Vec3::point_in_triangle(const Vec3& A, const Vec3& B, const Vec3& C, const Vec3& P)
+bool vec3::point_in_triangle(const vec3& A, const vec3& B, const vec3& C, const vec3& P)
 {
-	// Le nom de l'algorithm : Barycentric Coordinates
-	// L'objectif est en gros de caractérisé un point dans le triangle à l'aide de 2 vecteurs
-	// u et v. P = u*(C-A) + v*(B-A)
-	// Le but est de déterminé la valeur de u et de v en fonction du point P. si u et v > 0 et
-	//u+v < 1, alors on se trouve dans le triangle
-	Vec3 u = B - A;
-	Vec3 v = C - A;
-	Vec3 w = P - A;
+    // Le nom de l'algorithm : Barycentric Coordinates
+    // L'objectif est en gros de caractï¿½risï¿½ un point dans le triangle ï¿½ l'aide de 2 vecteurs
+    // u et v. P = u*(C-A) + v*(B-A)
+    // Le but est de dï¿½terminï¿½ la valeur de u et de v en fonction du point P. si u et v > 0 et
+    //u+v < 1, alors on se trouve dans le triangle
+    vec3 u = B - A;
+    vec3 v = C - A;
+    vec3 w = P - A;
 
-	// On fait le produit vectoriel 
-	Vec3 vCrossW = v.cross(w);
-	Vec3 vCrossU = v.cross(u);
+    // On fait le produit vectoriel
+    vec3 vCrossW = v.cross(w);
+    vec3 vCrossU = v.cross(u);
 
-	// On teste le signe de r
-	if (vCrossW.dot(vCrossU) < 0)
-		return false;
+    // On teste le signe de r
+    if(vCrossW.dot(vCrossU) < 0)
+        return false;
 
-	Vec3 uCrossW = u.cross(w);
-	Vec3 uCrossV = u.cross(v);
+    vec3 uCrossW = u.cross(w);
+    vec3 uCrossV = u.cross(v);
 
-	if (uCrossW.dot(uCrossV) < 0)
-		return false;
+    if(uCrossW.dot(uCrossV) < 0)
+        return false;
 
-	float denom = uCrossV.length();
-	float r = vCrossW.length() / denom;
-	float t = uCrossW.length() / denom;
+    float denom = uCrossV.length();
+    float r     = vCrossW.length() / denom;
+    float t     = uCrossW.length() / denom;
 
-	return (r + t <= 1);
+    return (r + t <= 1);
 }
 
-
-Vec3 Vec3::project_on_axis(const Vec3& point, const Vec3& axis)
+vec3 vec3::project_on_axis(const vec3& point, const vec3& axis)
 {
-	return axis.normalized() * point.dot(axis);
+    return axis.normalized() * point.dot(axis);
 }
 
-bool segment_intersection(const Vec3& a, const Vec3& b, const Vec3& c, const Vec3& d, Vec3& returnvec)
+bool segment_intersection(
+    const vec3& a, const vec3& b, const vec3& c, const vec3& d, vec3& returnvec)
 {
-	// Dans un premier temps, on vérifie que les vecteurs u et v de ab et cd ne sont pas colinéaire
+    // Dans un premier temps, on vï¿½rifie que les vecteurs u et v de ab et cd ne sont pas colinï¿½aire
 
-	Vec3 u = b - a;
-	Vec3 v = d - c;
+    vec3 u = b - a;
+    vec3 v = d - c;
 
-	float determinant = u.x * v.y - v.x * u.y;
+    float determinant = u.x * v.y - v.x * u.y;
 
-	// using an epsilon value
-	if (determinant >= -0.01 && determinant <= -0.01)
-		return false;
+    // using an epsilon value
+    if(determinant >= -0.01 && determinant <= -0.01)
+        return false;
 
-	// Si le déterminant n'est pas égal à 0, alors on cherche l'équation des 2 droites AB et CD
-	Vec3 line1 = Vec3::line_coefficients(a, b);
-	Vec3 line2 = Vec3::line_coefficients(c, d);
+    // Si le dï¿½terminant n'est pas ï¿½gal ï¿½ 0, alors on cherche l'ï¿½quation des 2 droites AB et CD
+    vec3 line1 = vec3::line_coefficients(a, b);
+    vec3 line2 = vec3::line_coefficients(c, d);
 
-	float xx = line1.y * line2.z - line2.y * line1.z;
-	float yy = line2.x * line1.z - line1.x * line2.z;
-	float ww = line1.x * line2.y - line2.x * line1.y;
+    float xx = line1.y * line2.z - line2.y * line1.z;
+    float yy = line2.x * line1.z - line1.x * line2.z;
+    float ww = line1.x * line2.y - line2.x * line1.y;
 
-	returnvec = Vec3(xx / ww, yy / ww, 0.0f);
+    returnvec = vec3(xx / ww, yy / ww, 0.0f);
 
-	float coefa = ((returnvec - a).length()) / u.length();
-	float coefb = ((returnvec - c).length()) / v.length();
+    float coefa = ((returnvec - a).length()) / u.length();
+    float coefb = ((returnvec - c).length()) / v.length();
 
-	if (coefa >= 0 && coefa <= 1)
-		if (coefb >= 0 && coefb <= 1)
-			return true;
-	return false;
+    if(coefa >= 0 && coefa <= 1)
+        if(coefb >= 0 && coefb <= 1)
+            return true;
+    return false;
 }
 
-Vec3 Vec3::line_coefficients(const Vec3& u, const Vec3& v)
+vec3 vec3::line_coefficients(const vec3& u, const vec3& v)
 {
-	return Vec3(v.y - u.y,
-		-(v.x - u.x),
-		-(u.x * v.y) + (v.x * u.y));
+    return vec3(v.y - u.y, -(v.x - u.x), -(u.x * v.y) + (v.x * u.y));
 }
 
-bool Vec3::operator<(const Vec3& other)const noexcept
+bool vec3::operator<(const vec3& other) const noexcept
 {
-	return sqrt_length() < other.sqrt_length();
+    return sqrt_length() < other.sqrt_length();
 }
 
-bool Vec3::operator==(const Vec3& v)const noexcept
+bool vec3::operator==(const vec3& v) const noexcept
 {
-	return equal(v);
+    return equal(v);
 }
 
-bool Vec3::operator!=(const Vec3& v)const noexcept
+bool vec3::operator!=(const vec3& v) const noexcept
 {
-	return !operator==(v);
+    return !operator==(v);
 }
 
-bool Vec3::equal(const Vec3& v, float epsilon) const noexcept
+bool vec3::equal(const vec3& v, float epsilon) const noexcept
 {
-	return
-		x >= v.x - epsilon && x <= v.x + epsilon &&
-		y >= v.y - epsilon && y <= v.y + epsilon &&
-		z >= v.z - epsilon && z <= v.z + epsilon;
+    return x >= v.x - epsilon && x <= v.x + epsilon && y >= v.y - epsilon &&
+           y <= v.y + epsilon && z >= v.z - epsilon && z <= v.z + epsilon;
 }
 
-Vec3& Vec3::operator=(const Vec3& v) noexcept
+vec3& vec3::operator=(const vec3& v) noexcept
 {
-	x = v.x;
-	y = v.y;
-	z = v.z;
-	return *this;
+    x = v.x;
+    y = v.y;
+    z = v.z;
+    return *this;
 }
 
-Vec3& Vec3::operator=(Vec3&& v) noexcept
+vec3& vec3::operator=(vec3&& v) noexcept
 {
-	x = v.x;
-	y = v.y;
-	z = v.z;
-	return *this;
+    x = v.x;
+    y = v.y;
+    z = v.z;
+    return *this;
 }
 
-Vec3& Vec3::operator+=(const Vec3& v) noexcept
+vec3& vec3::operator+=(const vec3& v) noexcept
 {
-	x += v.x;
-	y += v.y;
-	z += v.z;
-	return  *this;
+    x += v.x;
+    y += v.y;
+    z += v.z;
+    return *this;
 }
 
-Vec3& Vec3::operator-=(const Vec3& v) noexcept
+vec3& vec3::operator-=(const vec3& v) noexcept
 {
-	x -= v.x;
-	y -= v.y;
-	z -= v.z;
-	return *this;
+    x -= v.x;
+    y -= v.y;
+    z -= v.z;
+    return *this;
 }
 
-Vec3& Vec3::operator*=(const Vec3& v) noexcept
+vec3& vec3::operator*=(const vec3& v) noexcept
 {
-	x *= v.x;
-	y *= v.y;
-	z *= v.z;
-	return *this;
+    x *= v.x;
+    y *= v.y;
+    z *= v.z;
+    return *this;
 }
 
-Vec3& Vec3::operator*=(const float n) noexcept
+vec3& vec3::operator*=(const float n) noexcept
 {
-	x *= n;
-	y *= n;
-	z *= n;
-	return *this;
+    x *= n;
+    y *= n;
+    z *= n;
+    return *this;
 }
 
-Vec3& Vec3::operator/=(const float n) noexcept
+vec3& vec3::operator/=(const float n) noexcept
 {
-	x /= n;
-	y /= n;
-	z /= n;
-	return *this;
+    x /= n;
+    y /= n;
+    z /= n;
+    return *this;
 }
 
-Vec3 Vec3::operator+(const Vec3& v)const noexcept
+vec3 vec3::operator+(const vec3& v) const noexcept
 {
-	return Vec3(x + v.x, y + v.y, z + v.z);
+    return vec3(x + v.x, y + v.y, z + v.z);
 }
 
-Vec3 Vec3::operator-(const Vec3& v)const noexcept
+vec3 vec3::operator-(const vec3& v) const noexcept
 {
-	return Vec3(x - v.x, y - v.y, z - v.z);
+    return vec3(x - v.x, y - v.y, z - v.z);
 }
 
-Vec3 Vec3::operator*(const Vec3& v)const noexcept
+vec3 vec3::operator*(const vec3& v) const noexcept
 {
-	return Vec3(x * v.x, y * v.y, z * v.z);
+    return vec3(x * v.x, y * v.y, z * v.z);
 }
 
-Vec3 Vec3::operator*(const float n) const noexcept
+vec3 vec3::operator*(const float n) const noexcept
 {
-	return Vec3(x * n, y * n, z * n);
+    return vec3(x * n, y * n, z * n);
 }
 
-Vec3 Vec3::operator/(const float n) const noexcept
+vec3 vec3::operator/(const float n) const noexcept
 {
-	return Vec3(x / n, y / n, z / n);
+    return vec3(x / n, y / n, z / n);
 }
 
-Vec3 Vec3::operator-()const noexcept  // Unary operator
+vec3 vec3::operator-() const noexcept    // Unary operator
 {
-	return Vec3(-x, -y, -z);
+    return vec3(-x, -y, -z);
 }
 
-[[nodiscard]] Vec3 Vec3::normalized()const
+[[nodiscard]] vec3 vec3::normalized() const
 {
-	float l = length();
+    float l = length();
 
-	if (l == 0)
-		return Vec3();
+    if(l == 0)
+        return vec3();
 
-	return Vec3(x / l, y / l, z / l);
+    return vec3(x / l, y / l, z / l);
 
-	// the length thing actually goes slightly faster than
-	// the inverse sqrt tricks ... wth?
-	//return *this * math::inverse_sqrt(dot(*this));
+    // the length thing actually goes slightly faster than
+    // the inverse sqrt tricks ... wth?
+    //return *this * math::inverse_sqrt(dot(*this));
 }
 
-void Vec3::normalize() noexcept
+void vec3::normalize() noexcept
 {
-	*this *= math::inverse_sqrt(dot(*this));
+    *this *= math::inverse_sqrt(dot(*this));
 }
 
-float Vec3::sqrt_length()const noexcept
+float vec3::sqrt_length() const noexcept
 {
-	return((x * x) + (y * y) + (z * z));
+    return ((x * x) + (y * y) + (z * z));
 }
 
-float Vec3::length()const noexcept
+float vec3::length() const noexcept
 {
-	return math::sqrtf(sqrt_length());
+    return math::sqrtf(sqrt_length());
 }
 
-[[nodiscard]] Vec3 Vec3::cross(const Vec3& v)const noexcept
+[[nodiscard]] vec3 vec3::cross(const vec3& v) const noexcept
 {
-	return Vec3
-	(
-		(y * v.z) - (z * v.y),
-		(z * v.x) - (x * v.z),
-		(x * v.y) - (y * v.x)
-	);
+    return vec3((y * v.z) - (z * v.y), (z * v.x) - (x * v.z), (x * v.y) - (y * v.x));
 }
 
-[[nodiscard]] float Vec3::dot(const Vec3& v) const noexcept
+[[nodiscard]] float vec3::dot(const vec3& v) const noexcept
 {
-	return (x * v.x) + (y * v.y) + (z * v.z);
+    return (x * v.x) + (y * v.y) + (z * v.z);
 }
 
-Vec3 Vec3::zero()		{ return Vec3(0.f,	0.f,	0.f); };
-Vec3 Vec3::one()		{ return Vec3(1.f,	1.f,	1.f); };
-Vec3 Vec3::left()		{ return Vec3(-1.f, 0.f,	0.f); };
-Vec3 Vec3::right()		{ return Vec3(1.f,	0.f,	0.f); };
-Vec3 Vec3::up()			{ return Vec3(0.f,	1.f,	0.f); };
-Vec3 Vec3::down()		{ return Vec3(0.f,	-1.f,	0.f); };
-Vec3 Vec3::forward()	{ return Vec3(0.f,	0.f,	-1.f); };
-Vec3 Vec3::backward()	{ return Vec3(0.f,	0.f,	1.f); };
+vec3 vec3::zero()
+{
+    return vec3(0.f, 0.f, 0.f);
+};
+vec3 vec3::one()
+{
+    return vec3(1.f, 1.f, 1.f);
+};
+vec3 vec3::left()
+{
+    return vec3(-1.f, 0.f, 0.f);
+};
+vec3 vec3::right()
+{
+    return vec3(1.f, 0.f, 0.f);
+};
+vec3 vec3::up()
+{
+    return vec3(0.f, 1.f, 0.f);
+};
+vec3 vec3::down()
+{
+    return vec3(0.f, -1.f, 0.f);
+};
+vec3 vec3::forward()
+{
+    return vec3(0.f, 0.f, -1.f);
+};
+vec3 vec3::backward()
+{
+    return vec3(0.f, 0.f, 1.f);
+};

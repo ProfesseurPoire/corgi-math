@@ -6,7 +6,7 @@
 
 namespace corgi::math
 {
-static void extract_position_attribute(std::vector<Vec3>& positions,
+static void extract_position_attribute(std::vector<vec3>& positions,
                                        Matrix             model_matrix,
                                        const float*       vertices,
                                        int                vertex_size,
@@ -17,7 +17,7 @@ static void extract_position_attribute(std::vector<Vec3>& positions,
 
     for(int i = 0; i < vertex_count; ++i)
         positions.push_back(model_matrix *
-                            Vec3(&vertices[i * vertex_size + position_offset]));
+                            vec3(&vertices[i * vertex_size + position_offset]));
 }
 
 /*!
@@ -34,7 +34,7 @@ static void extract_position_attribute(std::vector<Vec3>& positions,
 		 */
 void get_axes(const unsigned int* indexes,
               int                 indexes_size,
-              std::vector<Vec3>&  normals,
+              std::vector<vec3>&  normals,
               const Matrix&       model_matrix,
               const float*        vertices,
               int                 vertex_size,
@@ -48,12 +48,12 @@ void get_axes(const unsigned int* indexes,
 
     for(int i = 0; i < indexes_size; i += 3)
     {
-        Vec3 normal = get_triangle_normal(
-            model_matrix * Vec3(&vertices[indexes[i] * vertex_size + position_offset]),
+        vec3 normal = get_triangle_normal(
+            model_matrix * vec3(&vertices[indexes[i] * vertex_size + position_offset]),
             model_matrix *
-                Vec3(&vertices[indexes[i + 1] * vertex_size + position_offset]),
+                vec3(&vertices[indexes[i + 1] * vertex_size + position_offset]),
             model_matrix *
-                Vec3(&vertices[indexes[i + 2] * vertex_size + position_offset]));
+                vec3(&vertices[indexes[i + 2] * vertex_size + position_offset]));
 
         // We only add the normal if it doesn't already exist
         found = false;
@@ -85,7 +85,7 @@ bool intersect_3D(Matrix          model_matrix_a,
                   int             vertex_count_b)
 {
 
-    std::vector<Vec3> axes;
+    std::vector<vec3> axes;
     axes.reserve(static_cast<size_t>(vertex_count_a + vertex_count_b));
 
     // I just have to compute the normals here otherwise I can't use the model matrix
@@ -96,8 +96,8 @@ bool intersect_3D(Matrix          model_matrix_a,
 
     // TODO :	This is not a really performant operation, but at least it's easier to wrap
     //			my mind around that. Maybe later on, once this works, optimize it
-    std::vector<Vec3> v_a;
-    std::vector<Vec3> v_b;
+    std::vector<vec3> v_a;
+    std::vector<vec3> v_b;
 
     extract_position_attribute(v_a, model_matrix_a, vertices_a, vertex_size_a,
                                position_offset_a, vertex_count_a);
@@ -108,18 +108,18 @@ bool intersect_3D(Matrix          model_matrix_a,
     // Elles permettent de potentiellement pousser une forme au mieux pour �viter que
     // les formes ne se rentrent dedans
 
-    Vec3  smallestaxis;
+    vec3  smallestaxis;
     float smallestmagnitude = 99999999999.0f;
 
     // Shape contient déjà les axes à tester
 
-    //std::vector<Vec3> axes = new Vector3[shape1.axes_.Length + shape2.axes_.Length + (shape1.axes_.Length * shape2.axes_.Length)];
+    //std::vector<vec3> axes = new Vector3[shape1.axes_.Length + shape2.axes_.Length + (shape1.axes_.Length * shape2.axes_.Length)];
     //shape1.axes_.CopyTo(axes, 0);
     //shape2.axes_.CopyTo(axes, shape1.axes_.Length);
 
-    std::vector<Vec3> shape1projections;
+    std::vector<vec3> shape1projections;
     shape1projections.reserve(axes.size());
-    std::vector<Vec3> shape2projections;
+    std::vector<vec3> shape2projections;
     shape2projections.reserve(axes.size());
 
     for(auto& axe : axes)
@@ -144,21 +144,21 @@ bool intersect_3D(Matrix          model_matrix_a,
     return true;
 }
 
-bool intersect_2D(const Vec2*   vertices_a,
+bool intersect_2D(const vec2*   vertices_a,
                   unsigned int  vertices_a_size,
-                  const Vec2*   vertices_b,
+                  const vec2*   vertices_b,
                   unsigned int  vertices_b_size,
                   const Matrix& m1,
                   const Matrix& m2,
-                  const Vec2*   edges1,
+                  const vec2*   edges1,
                   unsigned int  edges_1_size,
-                  const Vec2*   edges2,
+                  const vec2*   edges2,
                   unsigned int  edges_2_size,
                   const Matrix& mat1,    // without translation
                   const Matrix& mat2)
 {
-    Vec2 shape1projections;
-    Vec2 shape2projections;
+    vec2 shape1projections;
+    vec2 shape2projections;
 
     float smallestmagnitude = std::numeric_limits<float>::max();
 
@@ -285,21 +285,21 @@ bool intersect_with_mesh(
     int    vertex_size,    // Size of 1 vertex, not in bytes but in float
     Matrix model_matrix,
     Ray    ray,
-    Vec3&  intersectionPoint,
-    Vec3&  intersectionNormal)
+    vec3&  intersectionPoint,
+    vec3&  intersectionNormal)
 {
     bool doesIntersect     = false;
     bool isClosestPointSet = false;
 
     for(int i = 0; i < indexes_size; i += 3)
     {
-        Vec3 posA = model_matrix * Vec3(&vertices[indexes[i] * vertex_size + offset]);
-        Vec3 posB = model_matrix * Vec3(&vertices[indexes[i + 1] * vertex_size + offset]);
-        Vec3 posC = model_matrix * Vec3(&vertices[indexes[i + 2] * vertex_size + offset]);
+        vec3 posA = model_matrix * vec3(&vertices[indexes[i] * vertex_size + offset]);
+        vec3 posB = model_matrix * vec3(&vertices[indexes[i + 1] * vertex_size + offset]);
+        vec3 posC = model_matrix * vec3(&vertices[indexes[i + 2] * vertex_size + offset]);
 
         // On a besoin de la normale pour trouver l'équation du plan du triangle
         // Rappel, équation du plan : ax+by+cz+d=0
-        Vec3 normal = get_triangle_normal(posA, posB, posC);
+        vec3 normal = get_triangle_normal(posA, posB, posC);
 
         float A = normal.x;
         float B = normal.y;
@@ -323,7 +323,7 @@ bool intersect_with_mesh(
             float t = -ray.start.x * A - ray.start.y * B - ray.start.z * C - D;
             t       = t / denom;
 
-            Vec3 P(ray.start.x + t * ray.direction.x, ray.start.y + t * ray.direction.y,
+            vec3 P(ray.start.x + t * ray.direction.x, ray.start.y + t * ray.direction.y,
                    ray.start.z + t * ray.direction.z);
 
             // We skip if the point is not inside the ray
@@ -333,7 +333,7 @@ bool intersect_with_mesh(
             if(t >= ray.length)
                 continue;
 
-            if(Vec3::point_in_triangle(posA, posB, posC, P))
+            if(vec3::point_in_triangle(posA, posB, posC, P))
             {
                 if(!isClosestPointSet)
                 {
@@ -357,7 +357,7 @@ bool intersect_with_mesh(
     return doesIntersect;
 }
 
-Vec3 project_points(const Vec3* points, const size_t points_size, const Vec3& axis)
+vec3 project_points(const vec3* points, const size_t points_size, const vec3& axis)
 {
     float mi  = points[0].dot(axis);
     float ma  = mi;
@@ -372,13 +372,13 @@ Vec3 project_points(const Vec3* points, const size_t points_size, const Vec3& ax
         if(val > ma)
             ma = val;
     }
-    return Vec3(mi, ma, 0.0f);
+    return vec3(mi, ma, 0.0f);
 }
 
-Vec2 project_points(const Vec2*   points,
+vec2 project_points(const vec2*   points,
                     const size_t  points_size,
                     const Matrix& mat,
-                    const Vec2&   axis)
+                    const vec2&   axis)
 {
     float mi  = (mat * points[0]).dot(axis);
     float ma  = mi;
@@ -393,10 +393,10 @@ Vec2 project_points(const Vec2*   points,
         if(val > ma)
             ma = val;
     }
-    return Vec2(mi, ma);
+    return vec2(mi, ma);
 }
 
-Vec3 get_triangle_normal(const Vec3& a, const Vec3& b, const Vec3& c)
+vec3 get_triangle_normal(const vec3& a, const vec3& b, const vec3& c)
 {
     float b_ax = b.x - a.x;
     float b_ay = b.y - a.y;
@@ -406,7 +406,7 @@ Vec3 get_triangle_normal(const Vec3& a, const Vec3& b, const Vec3& c)
     float c_ay = c.y - a.y;
     float c_az = c.z - a.z;
 
-    return Vec3((b_ay * c_az) - (b_az * c_ay), (b_az * c_ax) - (b_ax * c_az),
+    return vec3((b_ay * c_az) - (b_az * c_ay), (b_az * c_ax) - (b_ax * c_az),
                 (b_ax * c_ay) - (b_ay * c_ax))
         .normalized();
 
@@ -423,26 +423,26 @@ bool intersect_with_collider(int                 offset,
                              const unsigned int* indexes,
                              int                 indexes_size,
                              const float*        vertices,
-                             const Vec3*         normals,
+                             const vec3*         normals,
                              const Ray&          ray,
-                             Vec3&               intersection_point,
-                             Vec3&               intersection_normal)
+                             vec3&               intersection_point,
+                             vec3&               intersection_normal)
 {
     bool does_intersect              = false;
     bool is_first_intersection_point = false;
 
     // We convert the ray into the model's space by using the inverse matrix
-    // Why? Because the ray is only 2 Vec3.The mesh could have
+    // Why? Because the ray is only 2 vec3.The mesh could have
     // hundreds of normals and vertices to transform in world space
-    const Vec3 start     = inverse * ray.start;
-    const Vec3 direction = inverse * ray.direction - inverse * Vec3::zero();
+    const vec3 start     = inverse * ray.start;
+    const vec3 direction = inverse * ray.direction - inverse * vec3::zero();
 
     // We loop through every triangle
     for(int i = 0; i < indexes_size; i += 3)
     {
         // We first check if the plane and the ray are collinear by
         // comparing the plane's normal with the ray's direction
-        const Vec3& normal = normals[i / 3];
+        const vec3& normal = normals[i / 3];
 
         // I don't remember why collinearity is checked that way here
         float denom =
@@ -456,7 +456,7 @@ bool intersect_with_collider(int                 offset,
         // we use the ax+by+cz+d = 0 plane equation. We use 1 point
         // of the plane to compute the equation
 
-        Vec3  posA(&vertices[indexes[i] * vertex_size + offset]);
+        vec3  posA(&vertices[indexes[i] * vertex_size + offset]);
         float D = -(posA.x * normal.x + posA.y * normal.y + posA.z * normal.z);
 
         // Reusing denom variable, was called t before
@@ -486,14 +486,14 @@ bool intersect_with_collider(int                 offset,
 
         // P being the point that intersect between the plane
         // and the ray
-        Vec3 P(start + (direction * denom));
+        vec3 P(start + (direction * denom));
 
         // We now check if the intersection point is inside the triangle
 
-        Vec3 posB(&vertices[indexes[i + 1] * vertex_size + offset]);
-        Vec3 posC(&vertices[indexes[i + 2] * vertex_size + offset]);
+        vec3 posB(&vertices[indexes[i + 1] * vertex_size + offset]);
+        vec3 posC(&vertices[indexes[i + 2] * vertex_size + offset]);
 
-        if(Vec3::point_in_triangle(posA, posB, posC, P))
+        if(vec3::point_in_triangle(posA, posB, posC, P))
         {
             if(!is_first_intersection_point)
             {
@@ -516,7 +516,7 @@ bool intersect_with_collider(int                 offset,
     if(does_intersect)
     {
         intersection_normal =
-            model_matrix * intersection_normal - model_matrix * Vec3::zero();
+            model_matrix * intersection_normal - model_matrix * vec3::zero();
         intersection_point = model_matrix * intersection_point;
     }
     return does_intersect;

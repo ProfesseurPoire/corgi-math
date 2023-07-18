@@ -43,5 +43,5 @@ namespace corgi::random
 	///*!
 	// * @brief	Returns a random vector 
 	// */
-	//Vec3 random_vec3(float length = 1.0f);
+	//vec3 random_vec3(float length = 1.0f);
 }

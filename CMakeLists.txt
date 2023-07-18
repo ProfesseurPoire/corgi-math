@@ -7,7 +7,6 @@ set(CMAKE_DEBUG_POSTFIX d)
 
 add_library(${PROJECT_NAME} STATIC "")
 
-
 add_subdirectory(include/corgi/math)
 add_subdirectory(src)
 

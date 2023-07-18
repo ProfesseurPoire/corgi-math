@@ -6,6 +6,6 @@ target_sources(${PROJECT_NAME} PRIVATE
 	Random.cpp
 	RandomGen.cpp
 	Ray.cpp
-	Vec2.cpp
-	Vec2i.cpp
-	Vec3.cpp)
+	vec2.cpp
+	vec2i.cpp
+	vec3.cpp)
