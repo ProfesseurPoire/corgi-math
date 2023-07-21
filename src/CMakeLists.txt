@@ -1,4 +1,4 @@
-target_sources(${PROJECT_NAME} PRIVATE
+target_sources(${PROJECT_NAME}-lib PRIVATE
 	Collisions.cpp
 	Easing.cpp
 	MathUtils.cpp

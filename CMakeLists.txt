@@ -5,39 +5,39 @@ project(corgi-math VERSION 1.0.0)
 cmake_policy(SET CMP0076 NEW)
 set(CMAKE_DEBUG_POSTFIX d)
 
-add_library(${PROJECT_NAME} STATIC "")
+add_library(${PROJECT_NAME}-lib STATIC "")
 
 add_subdirectory(include/corgi/math)
 add_subdirectory(src)
 
 if(MSVC)
-target_compile_options(${PROJECT_NAME} PRIVATE -W4 -WX)
+target_compile_options(${PROJECT_NAME}-lib PRIVATE -W4 -WX)
 else()
-target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Werror)
+target_compile_options(${PROJECT_NAME}-lib PRIVATE -Wall -Werror)
 endif()
 
-set_property(TARGET corgi-math PROPERTY CXX_STANDARD 20)
+set_property(TARGET corgi-math-lib PROPERTY CXX_STANDARD 20)
 
-target_include_directories(${PROJECT_NAME} PUBLIC
+target_include_directories(${PROJECT_NAME}-lib PUBLIC
     "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
     "$<INSTALL_INTERFACE:include>")
 
-install(TARGETS ${PROJECT_NAME} EXPORT ${PROJECT_NAME}Targets
+install(TARGETS ${PROJECT_NAME}-lib EXPORT ${PROJECT_NAME}-libTargets
     LIBRARY     DESTINATION lib
     RUNTIME     DESTINATION bin)
 
 install(DIRECTORY include DESTINATION ./)
 
 install(
-    EXPORT ${PROJECT_NAME}Targets
-    FILE ${PROJECT_NAME}Targets.cmake
-    DESTINATION lib/cmake/${PROJECT_NAME})
+    EXPORT ${PROJECT_NAME}-libTargets
+    FILE ${PROJECT_NAME}-libTargets.cmake
+    DESTINATION lib/cmake/${PROJECT_NAME}-lib)
 
 include(CMakePackageConfigHelpers)
 
 configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/Config.cmake.in
   "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
-  INSTALL_DESTINATION lib/cmake/${PROJECT_NAME}
+  INSTALL_DESTINATION lib/cmake/${PROJECT_NAME}-lib
 )
 
 write_basic_package_version_file("${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
@@ -47,7 +47,7 @@ write_basic_package_version_file("${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Con
 install(FILES
           "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
           "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
-        DESTINATION lib/cmake/${PROJECT_NAME}
+        DESTINATION lib/cmake/${PROJECT_NAME}-lib
 )
 
 # Tests
