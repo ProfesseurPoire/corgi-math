@@ -6,7 +6,6 @@ cmake_policy(SET CMP0076 NEW)
 set(CMAKE_DEBUG_POSTFIX d)
 
 add_library(${PROJECT_NAME} STATIC "")
-add_library(corgi::math ALIAS ${PROJECT_NAME} )
 
 add_subdirectory(include/corgi/math)
 add_subdirectory(src)
@@ -32,6 +31,7 @@ install(DIRECTORY include DESTINATION ./)
 install(
     EXPORT ${PROJECT_NAME}Targets
     FILE ${PROJECT_NAME}Targets.cmake
+    NAMESPACE corgi::
     DESTINATION lib/cmake/${PROJECT_NAME})
 
 include(CMakePackageConfigHelpers)
